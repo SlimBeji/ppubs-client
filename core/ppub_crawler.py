@@ -24,13 +24,19 @@ def get_session_data():
     return dict(user_id=user_id, case_id=case_id)
 
 
-def _build_search_with_be_familiy_payload(query, start=0, page_count=500, case_id=None):
+def _build_query_from_id(identifier):
+    return f'("{identifier}").pn.'
+
+
+def _build_search_with_be_familiy_payload(identifier, start=0, page_count=500, case_id=None):
     """It looks like caseId is mandatory for this request
     Testing with dummy number does not seems to work
     Not sure if we will have to always fetch new sessions"""
     if case_id is None:
         case_id = DEFAULT_CASE_ID
         
+    query = _build_query_from_id(identifier)
+
     payload = {
         "start":start,
         "pageCount":page_count,
@@ -73,11 +79,11 @@ def _build_search_with_be_familiy_payload(query, start=0, page_count=500, case_i
     return payload
 
 
-def get_patents(query, start=0, page_count=500, case_id=None):
+def get_patents(identifier, start=0, page_count=500, case_id=None):
     search_url = "https://ppubs.uspto.gov/dirsearch-public/searches/searchWithBeFamily"
     headers = {"content-type":"application/json; charset=UTF-8"}
     payload = _build_search_with_be_familiy_payload(
-        query, start=start, page_count=page_count, case_id=case_id
+        identifier, start=start, page_count=page_count, case_id=case_id
     )
     response = requests.post(search_url, headers=headers, data=json.dumps(payload))
     if response.status_code != 200:
@@ -88,9 +94,9 @@ def get_patents(query, start=0, page_count=500, case_id=None):
     return patents
 
 
-def match_patent_guid(guid, patents):
+def match_patent_guid(identifier, patents):
     for patent in patents:
-        if re.search(guid, patent.get("guid", "")):
+        if re.search(f"US-{identifier}", patent.get("guid", "")):
             return patent
     
     return None
@@ -108,19 +114,19 @@ def get_patent_highlight(guid):
 
 
 @lru_cache(maxsize=MAX_CASH_QUERY_SEARCH_COUNT)
-def search_for_patent_highlight(query):
-    patents = get_patents(query)
+def search_for_patent_highlight(identifier):
+    patents = get_patents(identifier)
     if patents is None:
         return dict(
             status=HTTPStatus.NOT_FOUND,
-            error="No patent returned matched the query %s" % query
+            error="No patent returned matched the identifier %s" % identifier
         )
 
-    patent = match_patent_guid(query, patents)
+    patent = match_patent_guid(identifier, patents)
     if patent is None:
         return dict(
             status=HTTPStatus.NOT_FOUND,
-            error="No patent returned matched the query %s" % query
+            error="No patent returned matched the identifier %s" % identifier
         )
 
     guid = patent.get("guid","")
