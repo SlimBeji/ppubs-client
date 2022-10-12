@@ -1,0 +1,82 @@
+<div class="full-document-text">
+    {% if abstract_html %}
+        <div class="abstract-node" style="margin: 20px 0;">
+            <h3 class="document-heading" style="font-size: 16px; color: rgb(0, 0, 0); margin-bottom: 10px">
+                Abstract
+            </h3>
+            <div class="abstract" >
+                {{ abstract_html }}
+            </div>
+        </div>
+    {% endif %}
+    
+    {% if equivalent_abstract_html %}
+        <div class="equivalent-abstract-node" style="margin: 20px 0;">
+            <h3 class="document-heading" style="font-size: 16px; color: rgb(0, 0, 0); margin-bottom: 10px">
+                Equivalent Abstract
+            </h3>
+            <div class="equivalent-abstract" >
+                {{ equivalent_abstract_html }}
+            </div>
+        </div>
+    {% endif %}
+    
+    {% if background_text_html or brief_html %}
+        <div class="brief-node" style="margin: 20px 0;">
+            <h3 class="document-heading" style="font-size: 16px; color: rgb(0, 0, 0); margin-bottom: 10px">
+                Background/Summary
+            </h3>
+            <div class="background-text" >
+                {{ background_text_html }}
+            </div>
+            <br/>
+            <div class="brief" >
+                {{ brief_html }}
+            </div>
+        </div>
+    {% endif %}
+    
+    {% if description_html %}
+        <div class="description-node" style="margin: 20px 0;">
+            <h3 class="document-heading" style="font-size: 16px; color: rgb(0, 0, 0); margin-bottom: 10px">
+                Description
+            </h3>
+            <div class="description" >
+                {{ description_html }}
+            </div>
+        </div>
+    {% endif %}
+    
+    {% if chemical_codes_html %}
+        <div class="chemical-codes-node" style="margin: 20px 0;">
+            <h3 class="document-heading" style="font-size: 16px; color: rgb(0, 0, 0); margin-bottom: 10px">
+                Chemical-Codes
+            </h3>
+            <div class="chemical-codes" >
+                {{ chemical_codes_html }}
+            </div>
+        </div>
+    {% endif %}
+    
+    {% if claims_html %}
+        <div class="claims-node" style="margin: 20px 0;">
+            <h3 class="document-heading" style="font-size: 16px; color: rgb(0, 0, 0); margin-bottom: 10px">
+                Claims
+            </h3>
+            <div class="description" >
+                {{ claims_html }}
+            </div>
+        </div>
+    {% endif %}
+    
+    {% if sequence_listing_html %}
+        <div class="sequence-lisiting-node" style="margin: 20px 0;">
+            <h3 class="document-heading" style="font-size: 16px; color: rgb(0, 0, 0); margin-bottom: 10px">
+                Sequence Listing
+            </h3>
+            <div class="sequence-lisiting" >
+                {{ sequence_listing_html }}
+            </div>
+        </div>
+    {% endif %}
+</div>

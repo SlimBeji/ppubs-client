@@ -1,0 +1,29 @@
+{% macro display_html_block() %}
+    <style>
+        div#result-container {
+            min-height: 600px;
+        }
+    </style>
+    
+    <div id="result-container" class="mt-5 container border border-primary">
+        <h1 id="search-status" class="text-center">Waiting for queries to be submitted ...</h1>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        $(document).on("html_fetched", function() {
+            $("#search-status").html("Result fetched for query " + store.query)
+            $("#result").html(store.html);
+        });
+
+        $(document).on("loading", function() {
+            $("#search-status").html("Waiting for query " + store.query)
+            $("#result").html("");
+        });
+
+        $(document).on("error", function() {
+            $("#search-status").html("Error while fetching data for query " + store.query)
+            $("#result").html(store.error);
+        });
+    </script>
+{% endmacro %}

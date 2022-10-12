@@ -1,0 +1,13 @@
+{% extends 'layout.j2' %}
+{% from "macros/search_patent_form.j2" import search_patent_form %}
+{% from "macros/display_html_block.j2" import display_html_block %}
+
+
+{% block content %}
+    {{ search_patent_form() }}
+    {{ display_html_block() }}
+{% endblock %}
+
+
+{% block script %}
+{% endblock %}

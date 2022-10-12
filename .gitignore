@@ -1,0 +1,21 @@
+# Backend files
+*.pyc
+.cache
+.mypy_cache\
+.env
+__pycache__
+db
+venv
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*security-sgps.py
+*security_backend.py
+
+# Notes
+todo.txt

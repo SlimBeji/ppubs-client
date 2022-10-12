@@ -1,0 +1,9 @@
+#python 3.9.7
+# Flask API
+gunicorn
+flask
+flask-smorest
+flask-marshmallow
+
+# HTTp Requests
+requests

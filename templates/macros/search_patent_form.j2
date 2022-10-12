@@ -1,0 +1,43 @@
+{% macro search_patent_form() %}
+    <form>
+        <div class="form-group">
+            <label for="search-query-text">Query</label>
+            <input type="text" class="form-control" id="search-query-text" aria-describedby="search-query-help" placeholder="Enter patent search query">
+            <small id="search-query-help" class="form-text text-muted">Example: US-1000000, ("1000000").pn, etc...</small>
+        </div>
+        <button id="btn-patent-search" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <script>
+        $("#btn-patent-search").click(function(event){
+            event.preventDefault();
+            var search = $("#search-query-text").val();
+            var url = localhost + "/api/ppubs/crawl?query=" + search;
+            
+            // updating the store
+            store.query = search;
+            store.error = "";
+            store.html = "";
+            store.loading = true;
+            $(document).trigger("loading");
+            fetch(url).then(function(response) {
+                if (!response.ok) {
+                    store.error = "Something went wrong with api call: " + url;
+                    store.loading = false;
+                    $(document).trigger("error");
+                }
+                return response.json();
+            }).then(function(data) {
+                store.loading = false;
+                store.html = data.html;
+                $(document).trigger("html_fetched");
+                console.log(store);
+            }).catch(function(error) {
+                store.loading = false;
+                store.error = error;
+                $(document).trigger("error");
+                console.log(error);
+            });
+        });
+    </script>
+{% endmacro %}
