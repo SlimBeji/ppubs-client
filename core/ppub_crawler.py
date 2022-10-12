@@ -1,4 +1,3 @@
-from ast import parse
 from functools import lru_cache
 from http import HTTPStatus
 import requests
