@@ -7,7 +7,7 @@ class CrwalPatentHighlightGet(ma.Schema):
     class Meta:
         unknown = EXCLUDE
 
-    query = ma.String(required=True)
+    identifier = ma.String(required=True)
 
 
 class CrwalPatentHighlightGetResponse(ma.Schema):

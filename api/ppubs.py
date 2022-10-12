@@ -24,8 +24,8 @@ class CrwalPatentHighlight(MethodView):
     @ppubs_blueprint.arguments(CrwalPatentHighlightGet, location="query")
     @ppubs_blueprint.response(HTTPStatus.OK, CrwalPatentHighlightGetResponse)
     def get(self, args):
-        query = args.get("query")
-        highlight = search_for_patent_highlight(query)
+        identifier = args.get("identifier")
+        highlight = search_for_patent_highlight(identifier)
         if "error" in highlight:
             abort(highlight.get("status"), message=highlight.get("error"))
 
