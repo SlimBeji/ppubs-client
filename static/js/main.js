@@ -1,7 +1,7 @@
 console.log("Running PPubs crawler app")
 
 var store = {
-    query: "",
+    identifier: "",
     html: "",
     loading: false,
     error: ""

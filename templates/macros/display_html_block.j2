@@ -12,17 +12,17 @@
 
     <script>
         $(document).on("html_fetched", function() {
-            $("#search-status").html("Result fetched for query " + store.query)
+            $("#search-status").html("Result fetched for identifier " + store.identifier)
             $("#result").html(store.html);
         });
 
         $(document).on("loading", function() {
-            $("#search-status").html("Waiting for query " + store.query)
+            $("#search-status").html("Waiting for identifier " + store.identifier)
             $("#result").html("");
         });
 
         $(document).on("error", function() {
-            $("#search-status").html("Error while fetching data for query " + store.query)
+            $("#search-status").html("Error while fetching data for identifier " + store.identifier)
             $("#result").html(store.error);
         });
     </script>

@@ -1,9 +1,9 @@
 {% macro search_patent_form() %}
     <form>
         <div class="form-group">
-            <label for="search-query-text">Query</label>
-            <input type="text" class="form-control" id="search-query-text" aria-describedby="search-query-help" placeholder="Enter patent search query">
-            <small id="search-query-help" class="form-text text-muted">Example: US-1000000, ("1000000").pn, etc...</small>
+            <label for="search-identifier">Identifier</label>
+            <input type="number" class="form-control" id="search-identifier" aria-describedby="search-identifier-help" placeholder="Enter patent identifier">
+            <small id="search-identifier-help" class="form-text text-muted">Example: the identifier from "US-10000000-B2" is "10000000"</small>
         </div>
         <button id="btn-patent-search" type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -11,11 +11,11 @@
     <script>
         $("#btn-patent-search").click(function(event){
             event.preventDefault();
-            var search = $("#search-query-text").val();
-            var url = localhost + "/api/ppubs/crawl?query=" + search;
+            var search = $("#search-identifier").val();
+            var url = localhost + "/api/ppubs/crawl?identifier=" + search;
             
             // updating the store
-            store.query = search;
+            store.identifier = search;
             store.error = "";
             store.html = "";
             store.loading = true;
